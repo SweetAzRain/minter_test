@@ -1,3 +1,4 @@
+// vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -27,6 +28,14 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      // Указываем, что @near-js/utils является внешней зависимостью и не должна включаться в бандл
+      external: ['@near-js/utils'],
+    }
+  },
+  optimizeDeps: {
+    // Исключаем @near-js/utils из оптимизации зависимостей
+    exclude: ['@near-js/utils']
   },
   server: {
     fs: {
